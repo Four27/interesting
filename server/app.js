@@ -3,10 +3,10 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');    //用来解析http请求体
 
 var app = express();
-var port = 3000;
+var port = 3001;
 
 app.set('views', path.join(__dirname, '../client/build'));    // 视图加载文件位置，即client中index.html文件的位置
 app.set('view engine', 'html');   // 定义文件类型
@@ -42,7 +42,7 @@ app.all ("*", function (req, res) {
   res.render("index");
 })
 app.listen(port, function () {
-  console.log("server is running on port 3000");
+  console.log("server is running on port 3001");
 })
 
 module.exports = app;

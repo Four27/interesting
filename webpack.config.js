@@ -34,6 +34,6 @@ module.exports = {
     devServer: {
         contentBase: "./client/build",  // 设置webpack-dev-server提供服务器的文件夹
         port: 3000,    // 服务器端口
-        inline: true
+        inline: true   // 实时更新
     }
 }
