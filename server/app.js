@@ -3,22 +3,27 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');    //用来解析http请求体
+var bodyParser = require('body-parser');
+
+var index = require('./routes/index');
+var users = require('./routes/users');
 
 var app = express();
-var port = 3001;
 
-app.set('views', path.join(__dirname, '../client/build'));    // 视图加载文件位置，即client中index.html文件的位置
-app.set('view engine', 'html');   // 定义文件类型
-// app.engine('html', ejs.renderFile); 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());     // 解析json
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());     // 解析cookie
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', index);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,12 +42,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.all ("*", function (req, res) {
-  res.render("index");
-})
-app.listen(port, function () {
-  console.log("server is running on port 3001");
-})
 
 module.exports = app;
