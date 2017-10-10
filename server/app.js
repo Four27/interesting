@@ -4,11 +4,12 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');    // 可以直接利用req.bodu获取转换后的body
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var userLogin = require('./routes/userLogin');
+var userReigister = require('./routes/userReigster');
 
 var app = express();
 
@@ -19,14 +20,15 @@ app.set('view engine', 'pug');     // 指定要使用的模板引擎
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json());    
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));   // 提供应用程序需要1的静态资源，同时是express中的唯一内置的中间件函数，为内置中间件
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/userlogin', userLogin);
+app.use('/userLogin', userLogin);
+app.use('./userReigister', userReigister);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
