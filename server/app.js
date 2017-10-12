@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');    // 可以直接利用req.bodu获取�
 var index = require('./routes/index');
 var users = require('./routes/users');
 var userLogin = require('./routes/userLogin');
-var userReigister = require('./routes/userReigster');
+var userRegister = require('./routes/userRegister');
 
 var app = express();
 
@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));   // 提供应用程序
 app.use('/', index);
 app.use('/users', users);
 app.use('/userLogin', userLogin);
-app.use('./userReigister', userReigister);
+app.use('/userRegister', userRegister);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
