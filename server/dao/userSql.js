@@ -1,8 +1,10 @@
-var user = {
+var userSQL = {
     userLogin: 'select userName from user where userId = ?',
     userLoginSelect: 'select userName from user where userId = ? and userPwd = ?',
 
-    userRegisterInsert: 
+    userRegisterInsert: 'insert into register values(?,?,?)'    // 插入注册信息
 }
+
+module.exports = userSQL;
 
 //存储相关SQL语句
