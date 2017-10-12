@@ -1,6 +1,6 @@
-module.export = {
-    mysql: {
-        host: '127.0.0.1',
+module.exports = {
+    mySql: {
+        host: 'localhost',
         user: 'root',
         password: 'yxl123456',
         database: 'interesting',
