@@ -1,6 +1,6 @@
 var userSQL = {
     userLogin: 'select userName from user where userId = ?',
-    userLoginSelect: 'select userName from user where userId = ? and userPwd = ?',
+    userLoginSelect: 'select userId from user where userName = ? and userPwd = ?',
 
     userRegisterInsert: 'insert into register values(?,?,?)'    // 插入注册信息
 }
