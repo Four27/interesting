@@ -15,7 +15,7 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
             console.log(err);
             res.end(JSON.stringify(response));
         } else {
-            connection.query(userSQL.userLoginSelect, [req.body.userName, req.body.userPwd], function (err, result) {
+            connection.query(userSQL.userLoginSelect, [req.query.userName, req.query.userPwd], function (err, result) {
                 if (err) {    // 数据库查询出错
                     response = {
                         status: 500,
@@ -27,15 +27,14 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
                     connection.release();   // 释放连接
                 } else {
                     if (result !== '') {
-                        req.session.userName = req.body.userName;
-                        userid = result;
+                        req.session.userName = req.query.userName;
+                        userId = result[0].userId;        // result必须用result[0]这种形式取值，因为result的返回值实际上是：[ RowDataPacket { userId: '2' } ]这种形式   
                         response = {
                             status: 200,
                             msg: '登录成功！',
-                            userName: 'hello'
-                        }
+                            userId: userId
+                        };
 
-                        console.log(userid);
                         res.end(JSON.stringify(response));
                         connection.release();   // 释放连接
                     } else {
@@ -44,6 +43,7 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
                             msg: 'username查询失败！'
                         }
 
+                        console.log(err);
                         res.end(JSON.stringify(response));
                         connection.release();   // 释放连接
                     }
