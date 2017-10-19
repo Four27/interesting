@@ -1,8 +1,10 @@
 var express = require('express');
+var jwt = require('jsonwebtoken');
 var router = express.Router();
 
 var pool = require('../dao/pool');
 var userSQL = require('../dao/userSql');
+var secretKey = "interesting";
 
 router.post('/', function (req, res) {    //中间件函数，处理ajax请求
     pool.getConnection(function (err, connection) {    // 连接数据池，并处理不同的连接情况
@@ -27,12 +29,16 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
                     connection.release();   // 释放连接
                 } else {
                     if (result !== '') {
-                        req.session.userName = req.query.userName;
+                        // req.session.userName = req.query.userName;
                         userId = result[0].userId;        // result必须用result[0]这种形式取值，因为result的返回值实际上是：[ RowDataPacket { userId: '2' } ]这种形式   
                         response = {
                             status: 200,
                             msg: '登录成功！',
-                            userId: userId
+                            userId: userId,
+                            secret: secretKey,
+                            token: jwt.sign({
+                                id: userId
+                            }, secretKey)
                         };
 
                         res.end(JSON.stringify(response));
