@@ -34,7 +34,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: "./build",  // 设置webpack-dev-server提供服务器的文件夹
-        port: 3333,              // 服务器端口
+        port: 3000,              // 服务器端口
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()

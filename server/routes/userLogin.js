@@ -9,7 +9,7 @@ var secretKey = "interesting";
 router.post('/', function (req, res) {    //中间件函数，处理ajax请求
     pool.getConnection(function (err, connection) {    // 连接数据池，并处理不同的连接情况
         if (err) {
-            response = {
+            var response = {
                 status: 500,
                 msg: '数据库连接失败！'
             };
@@ -29,25 +29,26 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
                     connection.release();   // 释放连接
                 } else {
                     if (result !== '') {
-                        // req.session.userName = req.query.userName;
-                        userId = result[0].userId;        // result必须用result[0]这种形式取值，因为result的返回值实际上是：[ RowDataPacket { userId: '2' } ]这种形式   
-                        response = {
+                        var userId = result[0].userId;        // result必须用result[0]这种形式取值，因为result的返回值实际上是：[ RowDataPacket { userId: '2' } ]这种形式   
+                        var mytoken = jwt.sign({
+                                id: userId
+                            }, secretKey, {expiresIn: '1d'});   // expiresIn为token的有效时间，1d表示一天
+
+                        var response = {
                             status: 200,
                             msg: '登录成功！',
                             userId: userId,
                             secret: secretKey,
-                            token: jwt.sign({
-                                id: userId
-                            }, secretKey)
+                            token: mytoken
                         };
 
                         res.end(JSON.stringify(response));
                         connection.release();   // 释放连接
                     } else {
-                        response = {
+                        var response = {
                             status: 500,
                             msg: 'username查询失败！'
-                        }
+                        };
 
                         console.log(err);
                         res.end(JSON.stringify(response));

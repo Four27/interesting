@@ -10,7 +10,7 @@ var router = express.Router();
 // });
 
 router.get('/', function(req,res) {
-  res.send(req.user);
+  res.send(req.user);     // 成功解码后的token放入req.user中
 });
 
 module.exports = router;

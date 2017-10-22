@@ -5,8 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');    // 可以直接利用req.bodu获取转换后的body
-// var session = require('express-session');   // 引入session所需要的包
-var expressJWT = require('express-jwt');    // 用来验证token
+var expressJWT = require('express-jwt');    // 用来解码验证token
 
 var secretKey = "interesting";   // 设置密钥
 
@@ -34,15 +33,6 @@ app.use(expressJWT ({
 }).unless({
   path:['/userLogin']
 }));
-
-// app.use(session ({
-//   secret: 'interesting',   // 对session id相关的cookie进行签名
-//   resave: true,
-//   saveUninitialized: false,    // 是否保存未初始化的会话
-//   cookie: {
-//     maxAge: 1000 * 60 * 3,    // 设置session的有效时间，单位为毫秒
-//   }
-// }))
 
 app.use('/', index);
 app.use('/users', users);
