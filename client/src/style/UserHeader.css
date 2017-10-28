@@ -1,0 +1,52 @@
+body {
+  font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,"宋体";
+  background: url('../images/background.jpg') no-repeat center center fixed;
+
+  -webkit-background-size: cover;   
+  -moz-background-size: cover; 
+  -o-background-size: cover;
+  background-size: cover;   /*使图片覆盖整个屏幕*/
+}
+/*背景图片最好置于body中，如果放在html将不能加载*/
+
+
+.header {
+  text-align: center;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header > p {
+  font-size: 35px;
+  font-family: 'Comic Sans MS';
+  color: #fff;
+}
+
+.userLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /*border: 1px solid forestgreen;*/
+}
+
+.user > a {     /*通过在控制台查看元素发现，Link的属性需要把它当做a标签来设置*/
+  text-decoration: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 4px;   /*字母间的间距*/
+  width: 250px;
+  height: 56px;
+  float: left;      /*利用这种方式实现两个div并排的效果*/
+  line-height: 50px;    /*实现文字上下居中*/
+  font-size: 18px;
+  background-color: rgba(17,17,17,0.5);
+  border-right: 1px solid rgba(17,17,17,0.3);
+  text-align: center;
+}
+
+.user > a:hover {
+  color: #fff;
+}
+

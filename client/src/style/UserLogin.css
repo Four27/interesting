@@ -1,0 +1,52 @@
+@import '~antd/dist/antd.css';
+
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+
+.anticon {
+  font-size: 28px;
+}
+.ant-input {
+  font-size: 20px;
+}
+.ant-input-affix-wrapper {
+  width: 380px;
+  height: 60px;
+}
+.ant-input-affix-wrapper .ant-input:not(:first-child) {
+  padding-left: 45px;
+}
+.ant-form-item {
+  margin-top: 40px;
+}
+.ant-btn-primary {
+  border-color: #3a863d;
+  background-color: #3a863d;
+  width: 380px;
+  height: 50px;
+  font-size: 20px; 
+}
+
+.ant-btn-primary:visited, 
+.ant-btn-primary:active,
+.ant-btn-primary:hover,
+.ant-btn-primary:focus  {
+  background: rgb(74, 177, 78);
+  border: rgb(74, 177, 78);
+}
+.userLogin {
+  width: 500px;
+  height: 350px;
+  margin: 0 auto;
+  zoom: 1;
+  display: flex;
+  justify-content: center;
+  background: rgba(60, 55, 55, 0.62);
+}
