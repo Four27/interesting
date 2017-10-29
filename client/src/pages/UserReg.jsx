@@ -1,58 +1,148 @@
 import React from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Input, Icon, Row, Col, Button } from 'antd';
 
-import '../style/UserReg.css';
+import '../style/UserReg.css'
 
 const FormItem = Form.Item;
 
 class UserRegister extends React.Component {
+    state = {
+        confirmDirty: false,
+    };
+
     handleSubmit = (e) => {
-        e.preventDefault();    // 阻止链接打开新页面的默认行为
-        this.props.form.validateFields((err, values) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                
-                const { form } = this.props;
-                const test = form.getFieldsValue();
-                console.log(test);
             }
         });
-    }
-    // validateFields：校验并获取一组输入域的值与error, 若fieldNames参数为空，则校验全部组件。
+    }   // 数据验证成功后提交表单
 
+    handleConfirmBlur = (e) => {
+        const value = e.target.value;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
+
+    checkPassword = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('两次密码不匹配!');    // 回调函数
+        } else {
+            callback();
+        }
+    }
+
+    checkConfirm = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback();
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        // getFieldDecorator：用于和表单进行双向绑定。getFieldDecorator包装的控件，表单会自动添加value、onChage，
-        // 数据同步将被Form接管
+
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 6 },
+                sm: { span: 6 },
+            },
+            wrapperCol: {
+                xs: { span: 14 },
+                sm: { span: 14 },
+            },
+        };
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 12,
+                    offset: 0,
+                },
+                sm: {
+                    span: 14,
+                    offset: 1,
+                },
+            },
+        };
+
+        // label:输入框名称
+        // type:内建正则校验   validator：自定义校验
 
         return (
-            <div className = "userReg">
-                <Form onSubmit={this.handleSubmit} className="login-form">
-                    <FormItem>
-                        {getFieldDecorator('userName', {
-                            rules: [{ required: true, message: '请输入邮箱或手机号！' }]
+            <div className="userReg">
+                <Form onSubmit={this.handleSubmit}>
+                    <FormItem
+                        {...formItemLayout}
+                        label="邮箱"
+                        hasFeedback
+                    >
+                        {getFieldDecorator('email', {
+                            rules: [{
+                                type: 'email', message: '邮箱格式不正确!',
+                            }, {
+                                required: true, message: '请输入邮箱!',
+                            }],
                         })(
-                            <Input prefix={<Icon type="user" style={{ fontsize: 20 }} />} placeholder='邮箱/手机号' />
+                            <Input />
                             )}
                     </FormItem>
-
-                    <FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="密码"
+                        hasFeedback
+                    >
                         {getFieldDecorator('password', {
-                            rules: [{ required: true, message: '请输入密码!' }]
+                            rules: [{
+                                required: true, message: '请输入密码!',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
                         })(
-                            <Input prefix={<Icon type='lock' style={{ fontsize: 20 }} />} type='password' placeholder='密 码' />
+                            <Input type="password" />
+                            )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="确认密码"
+                        hasFeedback
+                    >
+                        {getFieldDecorator('confirm', {
+                            rules: [{
+                                required: true, message: '请再次确认你的密码!',
+                            }, {
+                                validator: this.checkPassword,
+                            }],
+                        })(
+                            <Input type="password" onBlur={this.handleConfirmBlur} />
                             )}
                     </FormItem>
 
-                    <FormItem>
-                        <Button type="primary" htmlType="submit">
-                            注 册
-                        </Button>
+                    <FormItem
+                        {...formItemLayout}
+                        label="验证码"
+                    >
+                        <Row gutter={8}>
+                            <Col span={12}>
+                                {getFieldDecorator('captcha', {
+                                    rules: [{ required: true, message: '请输入邮箱获取到的验证码!' }],
+                                })(
+                                    <Input size="large" />
+                                    )}
+                            </Col>
+                            <Col span={12}>
+                                <Button size="large">获取验证码</Button>
+                            </Col>
+                        </Row>
+                    </FormItem>
+
+                    <FormItem {...tailFormItemLayout}>
+                        <Button type="primary" htmlType="submit" className="reg-form-button">注 册</Button>
                     </FormItem>
                 </Form>
             </div>
-        )
+        );
     }
 }
 
