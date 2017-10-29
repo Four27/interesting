@@ -44,10 +44,19 @@
 
 .userReg {
   width: 500px;
-  height: 350px;
+  height: 480px;
   margin: 0 auto;
   zoom: 1;
   display: flex;
   justify-content: center;
   background: rgba(60, 55, 55, 0.62);
+}
+
+.reg-form-button {
+  width: 400px;
+  height: 35px;
+}
+.ant-form-item-label label {
+  color:#efdddd;
+  font-size: 15px;
 }
