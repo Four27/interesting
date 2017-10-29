@@ -26,7 +26,7 @@
 .ant-form-item {
   margin-top: 40px;
 }
-.ant-btn-primary {
+.login-form-button {
   border-color: #3a863d;
   background-color: #3a863d;
   width: 380px;
@@ -34,10 +34,10 @@
   font-size: 20px; 
 }
 
-.ant-btn-primary:visited, 
-.ant-btn-primary:active,
-.ant-btn-primary:hover,
-.ant-btn-primary:focus  {
+.login-form-button:visited, 
+.login-form-button:active,
+.login-form-button:hover,
+.login-form-button:focus  {
   background: rgb(74, 177, 78);
   border: rgb(74, 177, 78);
 }
