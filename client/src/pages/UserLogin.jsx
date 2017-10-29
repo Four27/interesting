@@ -24,13 +24,15 @@ class UserLog extends React.Component {
         // 数据同步将被Form接管
 
         return (
-            <div className = "userLogin">
+            <div className="userLogin">
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <FormItem>
                         {getFieldDecorator('userName', {
-                            rules: [{ required: true, message: '请输入邮箱或手机号！' }]
+                            rules: [{
+                                type: 'email', message: '邮箱格式不正确!'
+                            }, { required: true, message: '请输入邮箱号！' }]
                         })(
-                            <Input prefix={<Icon type="user" style={{ fontsize: 20 }} />} placeholder='邮箱/手机号' />
+                            <Input prefix={<Icon type="user" style={{ fontsize: 20 }} />} placeholder='用户邮箱' />
                             )}
                     </FormItem>
 
