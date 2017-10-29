@@ -9,10 +9,9 @@ body {
 }
 /*背景图片最好置于body中，如果放在html将不能加载*/
 
-
 .header {
   text-align: center;
-  height: 160px;
+  height: 140px;
   display: flex;
   justify-content: center;
   align-items: center;

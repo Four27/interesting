@@ -6,7 +6,7 @@ import '../style/UserHeader.css';
 class UserHeader extends React.Component {
     render() {
         return (
-            <div>
+            <div className="userHeader">
                 <div className="header">
                     <p>Make life more interesting!</p>
                 </div>
