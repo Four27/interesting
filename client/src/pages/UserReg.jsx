@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Icon, Row, Col, Button } from 'antd';
 
+import baseUrl from '../config.jsx';
 import '../style/UserReg.css'
 
 const FormItem = Form.Item;
@@ -15,6 +16,27 @@ class UserRegister extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+
+                let request = new Request(`${baseUrl}/userRegister`, {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json'},
+                    mode: "cors",
+                    body: JSON.stringify(values)
+                });
+
+                fetch(request).then(
+                    (res) => {
+                        return res.json();
+                    }
+                ).then (
+                    (data) => {
+                        console.log(data);
+                    }
+                ).catch (
+                    (err) => {
+                        console.log(err);
+                    }
+                )
             }
         });
     }   // 数据验证成功后提交表单
@@ -26,7 +48,7 @@ class UserRegister extends React.Component {
 
     checkPassword = (rule, value, callback) => {
         const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
+        if (value && value !== form.getFieldValue('userPwd')) {
             callback('两次密码不匹配!');    // 回调函数
         } else {
             callback();
@@ -90,10 +112,23 @@ class UserRegister extends React.Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
+                        label="用户名"
+                        hasFeedback
+                    >
+                        {getFieldDecorator('userName', {
+                            rules: [{
+                                required: true, message: '请输入用户名!',
+                            }],
+                        })(
+                            <Input />
+                            )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
                         label="密码"
                         hasFeedback
                     >
-                        {getFieldDecorator('password', {
+                        {getFieldDecorator('userPwd', {
                             rules: [{
                                 required: true, message: '请输入密码!',
                             }, {
@@ -119,7 +154,7 @@ class UserRegister extends React.Component {
                             )}
                     </FormItem>
 
-                    <FormItem
+                    {/*<FormItem
                         {...formItemLayout}
                         label="验证码"
                     >
@@ -135,7 +170,7 @@ class UserRegister extends React.Component {
                                 <Button size="large">获取验证码</Button>
                             </Col>
                         </Row>
-                    </FormItem>
+                    </FormItem>*/}
 
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit" className="reg-form-button">注 册</Button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
+import baseUrl from '../config.jsx';
 import '../style/UserLogin.css';
 
 const FormItem = Form.Item;
@@ -12,6 +13,27 @@ class UserLog extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+
+                let request = new Request(`${baseUrl}/userLogin`, {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json'},
+                    mode: "cors",
+                    body: JSON.stringify(values)
+                });
+
+                fetch(request).then(
+                    (res) => {
+                        return res.json();
+                    }
+                ).then (
+                    (data) => {
+                        console.log(data);
+                    }
+                ).catch (
+                    (err) => {
+                        console.log(err);
+                    }
+                )
             }
         });
     }
@@ -27,17 +49,19 @@ class UserLog extends React.Component {
             <div className="userLogin">
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <FormItem>
-                        {getFieldDecorator('userName', {
+                        {getFieldDecorator('email', {
                             rules: [{
-                                type: 'email', message: '邮箱格式不正确!'
-                            }, { required: true, message: '请输入邮箱号！' }]
+                                type: 'email', message: '邮箱格式不正确!',
+                            },{ 
+                                required: true, message: '请输入邮箱号！' 
+                            }]
                         })(
                             <Input prefix={<Icon type="user" style={{ fontsize: 20 }} />} placeholder='用户邮箱' />
                             )}
                     </FormItem>
 
                     <FormItem>
-                        {getFieldDecorator('password', {
+                        {getFieldDecorator('userPwd', {
                             rules: [{ required: true, message: '请输入密码!' }]
                         })(
                             <Input prefix={<Icon type='lock' style={{ fontsize: 20 }} />} type='password' placeholder='密 码' />
