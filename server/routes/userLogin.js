@@ -17,7 +17,7 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
             console.log(err);
             res.end(JSON.stringify(response));
         } else {
-            connection.query(userSQL.userLoginSelect, [req.query.userName, req.query.userPwd], function (err, result) {
+            connection.query(userSQL.userLoginSelect, [req.body.email, req.body.userPwd], function (err, result) {
                 if (err) {    // 数据库查询出错
                     response = {
                         status: 500,
@@ -28,16 +28,16 @@ router.post('/', function (req, res) {    //中间件函数，处理ajax请求
                     res.end(JSON.stringify(response));
                     connection.release();   // 释放连接
                 } else {
-                    if (result !== '') {
-                        var userId = result[0].userId;        // result必须用result[0]这种形式取值，因为result的返回值实际上是：[ RowDataPacket { userId: '2' } ]这种形式   
+                    if (result!="") {
+                        var user = result[0].userName;        // result必须用result[0]这种形式取值，因为result的返回值实际上是：[ RowDataPacket { userId: '2' } ]这种形式   
                         var mytoken = jwt.sign({
-                                id: userId
+                                id: user
                             }, secretKey, {expiresIn: '1d'});   // expiresIn为token的有效时间，1d表示一天
 
                         var response = {
                             status: 200,
                             msg: '登录成功！',
-                            userId: userId,
+                            userName: user,
                             secret: secretKey,
                             token: mytoken
                         };

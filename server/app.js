@@ -6,8 +6,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');    // 可以直接利用req.bodu获取转换后的body
 var expressJWT = require('express-jwt');    // 用来解码验证token
+var cors = require('cors');
 
 var secretKey = "interesting";   // 设置密钥
+
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 204
+}
+// 配置跨域访问相关项
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -28,11 +35,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));   // 提供应用程序需要的静态资源，同时是express中的唯一内置的中间件函数，为内置中间件
 
+app.use(cors(corsOptions));    // 跨域访问
+
 app.use(expressJWT ({
   secret: secretKey    // 设置token中的密钥
 }).unless({
-  path:['/userLogin']
+  path:['/userLogin','/userRegister']
 }));
+
+// app.use(function(req, res) {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//   var dataObj = req.body;
+// })
 
 app.use('/', index);
 app.use('/users', users);

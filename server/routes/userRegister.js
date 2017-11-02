@@ -13,7 +13,7 @@ router.post('/', function (req, res) {
       }
       res.end(JSON.stringify(response));
     } else {
-      connection.query(userSQL.userRegisterInsert, [req.body.userId, req.body.userName, req.body.userPwd], function (err, result) {
+      connection.query(userSQL.userRegisterInsert, [req.body.email, req.body.userName, req.body.userPwd], function (err, result) {
         if (err) {
           response = {
             status: 500,
