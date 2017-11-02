@@ -1,5 +1,3 @@
-import React from "react";
+const baseUrl = "http://localhost:8080";
 
-const Config = "http://localhost:3001";
-
-export default Config;
+export default baseUrl;
