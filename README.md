@@ -3,7 +3,8 @@
 
 目前只完成了用户登录注册功能:(
 # client
-react + ant-design + webpack 
+基于react + ant-design + webpack 
+
 安装
 ```
 cd client
@@ -15,7 +16,8 @@ npm start
 ```
 
 # server
-express + mysql
+基于express + mysql
+
 安装
 ```
 cd server
