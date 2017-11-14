@@ -1,0 +1,19 @@
+@import '~antd/dist/antd.css';
+
+.ant-layout-header .logo {
+    width: 120px;
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    float: left;
+    text-align: center;
+    line-height: 31px;
+    font-family: 'Buxton Sketch';
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.item:active {
+    background-color: black;
+    color: #fff;
+}
