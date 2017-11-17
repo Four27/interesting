@@ -5,6 +5,8 @@
 # client
 基于react + ant-design + webpack 
 
+webpack环境使用自己配置的react-hot-webpack-boilerplate
+
 安装
 ```
 cd client

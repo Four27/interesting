@@ -30,6 +30,10 @@ body {
   /*border: 1px solid forestgreen;*/
 }
 
+.user {
+  display: block;
+}
+
 .user > a {     /*通过在控制台查看元素发现，Link的属性需要把它当做a标签来设置*/
   text-decoration: none;
   cursor: pointer;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'react-hot-loader/patch';
 
 import { AppContainer } from 'react-hot-loader';
-import Home from './pages/Home.jsx';
+import User from './pages/User.jsx';
 
 const render = Component => {
   ReactDOM.render(
@@ -14,8 +14,8 @@ const render = Component => {
   );
 }
 
-render(Home);
+render(User);
 
 if (module.hot) {
-  module.hot.accept('./pages/Home.jsx', () => { render(RootContainer) });
+  module.hot.accept('./pages/User.jsx', () => { render(RootContainer) });
 }
